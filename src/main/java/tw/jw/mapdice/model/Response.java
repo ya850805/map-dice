@@ -5,23 +5,23 @@ import org.springframework.http.HttpStatus;
 
 @Data
 public class Response<T> {
-    private T data;
     private Integer code;
+    private T data;
 
-    public Response(T data, Integer code) {
-        this.data = data;
+    public Response(Integer code, T data) {
         this.code = code;
+        this.data = data;
     }
 
-    public static <T> Response<T> build(T data, int status) {
-        return new Response<T>(data, status);
+    public static <T> Response<T> build(int status, T data) {
+        return new Response<T>(status, data);
     }
 
     public static <T> Response<T> ok(T data) {
-        return new Response<T>(data, HttpStatus.OK.value());
+        return new Response<T>(HttpStatus.OK.value(), data);
     }
 
     public static <T> Response<T> fail(T data) {
-        return new Response<T>(data, HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return new Response<T>(HttpStatus.INTERNAL_SERVER_ERROR.value(), data);
     }
 }
