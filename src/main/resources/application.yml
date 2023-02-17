@@ -3,6 +3,17 @@ server:
   servlet:
     context-path: /map-dice
 
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/map-dice
+    username: jason
+    password:
+
+mybatis:
+  mapper-locations: classpath:mybatis/**.xml
+
 google:
   api:
     key:
+
