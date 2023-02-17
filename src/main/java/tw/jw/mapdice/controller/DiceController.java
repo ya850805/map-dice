@@ -1,6 +1,7 @@
 package tw.jw.mapdice.controller;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import tw.jw.mapdice.constant.MapDiceConstant;
 import tw.jw.mapdice.exception.DiceException;
 import tw.jw.mapdice.model.DiceResponse;
 import tw.jw.mapdice.model.PlaceResponse;
+import tw.jw.mapdice.model.Response;
 
 import java.util.List;
 import java.util.Random;
@@ -25,7 +27,7 @@ public class DiceController {
     private Random random = new Random();
 
     @GetMapping("")
-    public PlaceResponse dice(
+    public Response<PlaceResponse> dice(
         @RequestParam("latitude") Double latitude,
         @RequestParam("longitude") Double longitude,
         @RequestParam(value = "radius", required = false, defaultValue = "1000") Double radius,
@@ -38,12 +40,12 @@ public class DiceController {
         DiceResponse response = restTemplate.getForEntity(requestURL, DiceResponse.class).getBody();
 
         if(!"OK".equals(response.getStatus())) {
-            throw new DiceException(response.getStatus());
+            throw new DiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         }
 
         List<PlaceResponse> results = response.getResults();
         int randIdx = random.nextInt(results.size());
 
-        return results.get(randIdx);
+        return Response.ok(results.get(randIdx));
     }
 }
