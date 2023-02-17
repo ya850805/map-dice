@@ -15,9 +15,9 @@ public class UserController {
     @Autowired
     private UsersService usersService;
 
-    @PostMapping("")
+    @PostMapping("/create")
     public Response<Integer> create(@RequestBody UsersCreateRequest users) {
-        //TODO encode password
+        //TODO Check username is exist or not
         int result = usersService.create(users.getName(), users.getPassword());
         return Response.ok(result);
     }

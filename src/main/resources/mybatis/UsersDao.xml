@@ -13,5 +13,8 @@
     INSERT INTO `users`(`name`, `password`)
     VALUES (#{name}, #{password})
   </insert>
+  <select id="getByName" resultType="tw.jw.mapdice.domain.Users">
+    SELECT * FROM `users` WHERE `name` = #{name}
+  </select>
 
 </mapper>

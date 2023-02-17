@@ -8,4 +8,5 @@ import tw.jw.mapdice.domain.Users;
 @Repository
 public interface UsersDao {
     Integer create(String name, String password);
+    Users getByName(String name);
 }
