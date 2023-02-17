@@ -28,7 +28,7 @@ public class DiceController {
     public PlaceResponse dice(
         @RequestParam("latitude") Double latitude,
         @RequestParam("longitude") Double longitude,
-        @RequestParam("radius") Double radius,
+        @RequestParam(value = "radius", required = false, defaultValue = "1000") Double radius,
         @RequestParam("type") String type
     ) {
         //TODO an user can only dice once in one day.
