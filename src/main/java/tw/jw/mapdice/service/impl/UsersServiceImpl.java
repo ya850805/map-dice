@@ -28,6 +28,11 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
     }
 
     @Override
+    public Users getByName(String name) {
+        return usersDao.getByName(name);
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users users = usersDao.getByName(username);
         return new User(username, users.getPassword(), new ArrayList<>());

@@ -2,14 +2,13 @@ package tw.jw.mapdice.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import tw.jw.mapdice.constant.MapDiceConstant;
-import tw.jw.mapdice.exception.DiceException;
+import tw.jw.mapdice.exception.MapDiceException;
 import tw.jw.mapdice.model.DiceResponse;
 import tw.jw.mapdice.model.PlaceResponse;
 import tw.jw.mapdice.model.Response;
@@ -40,7 +39,7 @@ public class DiceController {
         DiceResponse response = restTemplate.getForEntity(requestURL, DiceResponse.class).getBody();
 
         if(!"OK".equals(response.getStatus())) {
-            throw new DiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
+            throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         }
 
         List<PlaceResponse> results = response.getResults();

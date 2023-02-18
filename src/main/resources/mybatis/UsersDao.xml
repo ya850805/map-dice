@@ -14,7 +14,7 @@
     VALUES (#{name}, #{password})
   </insert>
   <select id="getByName" resultType="tw.jw.mapdice.domain.Users">
-    SELECT * FROM `users` WHERE `name` = #{name}
+    SELECT * FROM `users` WHERE LOWER(`name`) = LOWER(#{name})
   </select>
 
 </mapper>
