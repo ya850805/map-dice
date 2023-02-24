@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and().logout().logoutSuccessHandler(jwtLogoutSuccess)
             .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and().authorizeRequests()
-            .antMatchers("/login", "logout", "/users/create").permitAll()
+            .antMatchers("/login", "logout", "/users/**").permitAll()
             .anyRequest().authenticated()
             .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
             .and().addFilter(jwtAuthenticationFilter());
