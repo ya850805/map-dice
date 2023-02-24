@@ -9,9 +9,11 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import tw.jw.mapdice.security.*;
+import tw.jw.mapdice.service.UsersService;
 import tw.jw.mapdice.service.impl.UsersServiceImpl;
 
 @Configuration
@@ -31,37 +33,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
+    @Autowired
+    private UsersServiceImpl usersServiceImpl;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable();
-
-        http
-            .authorizeRequests()
-            .antMatchers("/login", "/users/create").permitAll()
-            .anyRequest().authenticated()
-            .and().formLogin().permitAll()
+        http.cors().and().csrf().disable()
+            .formLogin()
             .successHandler(authenticationSuccess)
             .failureHandler(authenticationFailure)
             .and().logout().logoutSuccessHandler(jwtLogoutSuccess)
+            .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and().authorizeRequests()
+            .antMatchers("/login", "logout", "/users/create").permitAll()
+            .anyRequest().authenticated()
             .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
-            .and()
-            .addFilter(jwtAuthenticationFilter());
+            .and().addFilter(jwtAuthenticationFilter());
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(usersServiceImpl).passwordEncoder(passwordEncoder());
     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
     }
 
     @Bean
