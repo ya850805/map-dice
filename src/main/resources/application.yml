@@ -15,6 +15,11 @@ spring:
 mybatis:
   mapper-locations: classpath:mybatis/**.xml
 
+jwt:
+  secret: f4e2e52034348f86b67cde581c0f9eb5
+  expire: 604800
+  header: Authorization
+
 google:
   api:
     key:

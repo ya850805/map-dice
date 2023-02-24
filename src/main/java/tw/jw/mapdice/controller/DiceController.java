@@ -50,8 +50,7 @@ public class DiceController {
             throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "type is illegal");
         }
 
-        Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username = ((UserDetails) user).getUsername();
+        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         ZSetOperations<String, String> zSet = redisTemplate.opsForZSet();
         Double score = zSet.score(type, username);
         if(score == null) {

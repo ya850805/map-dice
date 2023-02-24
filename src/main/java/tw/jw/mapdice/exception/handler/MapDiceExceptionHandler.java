@@ -1,10 +1,12 @@
 package tw.jw.mapdice.exception.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import tw.jw.mapdice.exception.MapDiceException;
 import tw.jw.mapdice.model.Response;
 
+@Slf4j
 @RestControllerAdvice
 public class MapDiceExceptionHandler {
     @ExceptionHandler({MapDiceException.class})
@@ -14,6 +16,7 @@ public class MapDiceExceptionHandler {
 
     @ExceptionHandler({Exception.class})
     public Response<String> handleGlobalException(Exception exception) {
+        log.error(exception.getLocalizedMessage());
         return Response.fail(exception.getMessage());
     }
 }

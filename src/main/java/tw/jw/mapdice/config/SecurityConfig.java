@@ -11,16 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import tw.jw.mapdice.security.AuthenticationEntryPoint;
-import tw.jw.mapdice.security.AuthenticationFailure;
-import tw.jw.mapdice.security.AuthenticationSuccess;
+import tw.jw.mapdice.security.*;
 import tw.jw.mapdice.service.impl.UsersServiceImpl;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -34,10 +26,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationFailure authenticationFailure;
 
     @Autowired
-    private AuthenticationEntryPoint authenticationEntryPoint;
+    private JwtLogoutSuccess jwtLogoutSuccess;
+
+    @Autowired
+    private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable();
+
         http
             .authorizeRequests()
             .antMatchers("/login", "/users/create").permitAll()
@@ -45,10 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and().formLogin().permitAll()
             .successHandler(authenticationSuccess)
             .failureHandler(authenticationFailure)
-            .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
-            .and().httpBasic().and();
-
-        http.cors().and().csrf().disable();
+            .and().logout().logoutSuccessHandler(jwtLogoutSuccess)
+            .and().exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+            .and()
+            .addFilter(jwtAuthenticationFilter());
     }
 
     @Override
@@ -63,13 +60,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     @Bean
-    protected UserDetailsService userDetailsService() {
-        return new UsersServiceImpl();
-    }
-
-    @Override
-    @Bean
     public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
+    }
+
+    @Bean
+    JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
+        JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager());
+        return jwtAuthenticationFilter;
     }
 }
