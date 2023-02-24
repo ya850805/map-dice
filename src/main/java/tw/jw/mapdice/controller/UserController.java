@@ -5,12 +5,16 @@ import io.jsonwebtoken.JwtException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import tw.jw.mapdice.exception.MapDiceException;
 import tw.jw.mapdice.model.Response;
 import tw.jw.mapdice.model.UsersCreateRequest;
 import tw.jw.mapdice.service.UsersService;
 import tw.jw.mapdice.utils.JwtUtils;
+
+import javax.validation.Valid;
+import java.util.stream.Collectors;
 
 @RequestMapping("/users")
 @RestController
@@ -35,9 +39,13 @@ public class UserController {
         }
     }
 
-    //TODO validate username & password is not blank
     @PostMapping("/create")
-    public Response<Integer> create(@RequestBody UsersCreateRequest users) {
+    public Response<Integer> create(@RequestBody @Valid UsersCreateRequest users, BindingResult br) {
+        if(br.hasErrors()) {
+            String errorMessages = br.getAllErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.joining(","));
+            throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMessages);
+        }
+
         if(usersService.getByName(users.getName()) != null) {
             throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "user already exists");
         }
