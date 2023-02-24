@@ -2,6 +2,7 @@ package tw.jw.mapdice.controller;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,10 @@ public class UserController {
 
     @GetMapping("/{jwt}")
     public Response<String> getLoginUserName(@PathVariable("jwt") String jwt) {
+        if(StringUtils.isBlank(jwt)) {
+            throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "jwt is invalid");
+        }
+
         Claims claims = jwtUtils.getClaimByToken(jwt);
         if(jwtUtils.isTokenExpired(claims)) {
             throw new JwtException("token is expired...");
@@ -30,6 +35,7 @@ public class UserController {
         }
     }
 
+    //TODO validate username & password is not blank
     @PostMapping("/create")
     public Response<Integer> create(@RequestBody UsersCreateRequest users) {
         if(usersService.getByName(users.getName()) != null) {

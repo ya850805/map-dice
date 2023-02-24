@@ -16,7 +16,6 @@ public class MapDiceExceptionHandler {
 
     @ExceptionHandler({Exception.class})
     public Response<String> handleGlobalException(Exception exception) {
-        log.error(exception.getLocalizedMessage());
         return Response.fail(exception.getMessage());
     }
 }
