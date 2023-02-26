@@ -3,6 +3,8 @@ package tw.jw.mapdice.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class PlaceResponse {
     @JsonProperty("place_id")
@@ -16,4 +18,13 @@ public class PlaceResponse {
     private Integer userRatingsTotal;
 
     private String vicinity;
+
+    private String url;
+
+    private String website;
+
+    @JsonProperty("formatted_address")
+    private String formattedAddress;
+
+    private List<PlaceDetailReviewResponse> reviews;
 }
