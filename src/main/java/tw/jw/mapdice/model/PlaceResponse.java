@@ -29,5 +29,5 @@ public class PlaceResponse {
     private List<PlaceDetailReviewResponse> reviews;
 
     @JsonProperty("formatted_phone_number")
-    private String phoneNumber;
+    private String formattedPhoneNumber;
 }
