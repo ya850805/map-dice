@@ -3,11 +3,12 @@
 <mapper namespace="tw.jw.mapdice.dao.UsersDao">
   <resultMap id="BaseResultMap" type="tw.jw.mapdice.domain.Users">
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, `name`, `password`
+    id, `email`, `name`, `password`
   </sql>
   <insert id="create">
     INSERT INTO `users`(`name`, `password`)

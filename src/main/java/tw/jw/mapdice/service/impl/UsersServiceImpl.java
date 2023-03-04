@@ -23,8 +23,8 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
     private BCryptPasswordEncoder encoder;
 
     @Override
-    public Integer create(String name, String password) {
-        return usersDao.create(name, encoder.encode(password));
+    public Integer create(String email, String name, String password) {
+        return usersDao.create(email, name, encoder.encode(password));
     }
 
     @Override

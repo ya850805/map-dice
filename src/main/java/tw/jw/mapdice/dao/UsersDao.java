@@ -7,6 +7,6 @@ import tw.jw.mapdice.domain.Users;
 @Mapper
 @Repository
 public interface UsersDao {
-    Integer create(String name, String password);
+    Integer create(String email, String name, String password);
     Users getByName(String name);
 }
