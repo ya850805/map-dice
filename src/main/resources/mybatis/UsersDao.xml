@@ -11,11 +11,17 @@
     id, `email`, `name`, `password`
   </sql>
   <insert id="create">
-    INSERT INTO `users`(`name`, `password`)
-    VALUES (#{name}, #{password})
+    INSERT INTO `users`(`email`, `name`, `password`)
+    VALUES (#{email}, #{name}, #{password})
   </insert>
+
+  <select id="getByEmail" resultType="tw.jw.mapdice.domain.Users">
+    SELECT * FROM `users` WHERE LOWER(`email`) = LOWER(#{email})
+  </select>
+
   <select id="getByName" resultType="tw.jw.mapdice.domain.Users">
     SELECT * FROM `users` WHERE LOWER(`name`) = LOWER(#{name})
   </select>
+
 
 </mapper>

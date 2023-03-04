@@ -46,9 +46,6 @@ public class UserController {
             throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMessages);
         }
 
-        if(usersService.getByName(users.getName()) != null) {
-            throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "user already exists");
-        }
         int result = usersService.create(users.getEmail(), users.getName(), users.getPassword());
         return Response.ok(result);
     }
