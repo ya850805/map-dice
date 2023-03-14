@@ -14,6 +14,7 @@ import tw.jw.mapdice.service.UsersService;
 import tw.jw.mapdice.utils.JwtUtils;
 
 import javax.validation.Valid;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequestMapping("/users")
@@ -48,5 +49,14 @@ public class UserController {
 
         int result = usersService.create(users.getEmail(), users.getName(), users.getPassword());
         return Response.ok(result);
+    }
+
+    @PostMapping("/forgotPwd/{email}")
+    public Response<Integer> forgotPwd(@PathVariable("email") String email) {
+        //TODO
+        if(Objects.isNull(usersService.getByEmail(email))) {
+            throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "email not exist");
+        }
+        return Response.ok(1);
     }
 }
