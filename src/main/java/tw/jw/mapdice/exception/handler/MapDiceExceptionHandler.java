@@ -14,8 +14,8 @@ public class MapDiceExceptionHandler {
         return Response.build(exception.getCode(), exception.getMessage());
     }
 
-    @ExceptionHandler({Exception.class})
-    public Response<String> handleGlobalException(Exception exception) {
-        return Response.fail(exception.getMessage());
-    }
+//    @ExceptionHandler({Exception.class})
+//    public Response<String> handleGlobalException(Exception exception) {
+//        return Response.fail(exception.getMessage());
+//    }
 }
