@@ -13,6 +13,13 @@ spring:
     password:
   redis:
     host: 127.0.0.1
+  mail:
+    port: 25
+    protocol: smtp
+    username: map-dice
+
+mail:
+  from: map-dice
 
 mybatis:
   mapper-locations: classpath:mybatis/**.xml
@@ -21,6 +28,7 @@ jwt:
   secret: f4e2e52034348f86b67cde581c0f9eb5
   expire: 604800
   header: Authorization
+
 
 google:
   api:
