@@ -14,9 +14,15 @@ spring:
   redis:
     host: 127.0.0.1
   mail:
+    host: smtp.gmail.com
     port: 25
     protocol: smtp
-    username: map-dice
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
 
 mail:
   from: map-dice
