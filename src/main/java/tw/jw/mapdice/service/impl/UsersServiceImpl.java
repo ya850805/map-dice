@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tw.jw.mapdice.dao.UsersDao;
 import tw.jw.mapdice.domain.Users;
 import tw.jw.mapdice.exception.MapDiceException;
@@ -26,6 +27,7 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
     private BCryptPasswordEncoder encoder;
 
     @Override
+    @Transactional
     public Integer create(String email, String name, String password) {
         if(!Objects.isNull(getByEmail(email))) {
             throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "email already exists");
