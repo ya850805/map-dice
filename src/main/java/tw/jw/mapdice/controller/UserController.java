@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import tw.jw.mapdice.exception.MapDiceException;
 import tw.jw.mapdice.model.Response;
 import tw.jw.mapdice.model.UsersCreateRequest;
+import tw.jw.mapdice.service.MailService;
 import tw.jw.mapdice.service.UsersService;
 import tw.jw.mapdice.utils.JwtUtils;
 
@@ -22,6 +23,9 @@ import java.util.stream.Collectors;
 public class UserController {
     @Autowired
     private UsersService usersService;
+
+    @Autowired
+    private MailService mailService;
 
     @Autowired
     private JwtUtils jwtUtils;
@@ -53,10 +57,7 @@ public class UserController {
 
     @PostMapping("/forgotPwd/{email}")
     public Response<Integer> forgotPwd(@PathVariable("email") String email) {
-        //TODO
-        if(Objects.isNull(usersService.getByEmail(email))) {
-            throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "email not exist");
-        }
+        mailService.sendForgotPassword(email);
         return Response.ok(1);
     }
 }
