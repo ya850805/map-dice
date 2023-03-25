@@ -14,6 +14,7 @@ import tw.jw.mapdice.service.MailService;
 import tw.jw.mapdice.service.UsersService;
 import tw.jw.mapdice.utils.JwtUtils;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -56,7 +57,7 @@ public class UserController {
     }
 
     @PostMapping("/forgotPwd/{email}")
-    public Response<Integer> forgotPwd(@PathVariable("email") String email) {
+    public Response<Integer> forgotPwd(@PathVariable("email") String email) throws MessagingException {
         mailService.sendForgotPassword(email);
         return Response.ok(1);
     }

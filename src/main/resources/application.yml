@@ -14,18 +14,21 @@ spring:
   redis:
     host: 127.0.0.1
   mail:
-    host: smtp.gmail.com
-    port: 25
+    host: smtp.office365.com
+    port: 587
     protocol: smtp
     properties:
       mail:
         smtp:
-          auth: false
+          auth: true
           starttls:
-            enable: false
+            enable: true
+            required: true
+    username:
+    password:
 
 mail:
-  from: map-dice
+  url:
 
 mybatis:
   mapper-locations: classpath:mybatis/**.xml
