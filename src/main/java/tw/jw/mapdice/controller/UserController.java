@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import tw.jw.mapdice.exception.MapDiceException;
 import tw.jw.mapdice.model.Response;
+import tw.jw.mapdice.model.UpdatePasswordRequest;
 import tw.jw.mapdice.model.UsersCreateRequest;
 import tw.jw.mapdice.service.MailService;
 import tw.jw.mapdice.service.UsersService;
@@ -59,6 +60,17 @@ public class UserController {
     @PostMapping("/forgotPwd/{email}")
     public Response<Integer> forgotPwd(@PathVariable("email") String email) throws MessagingException {
         mailService.sendForgotPassword(email);
+        return Response.ok(1);
+    }
+
+    @PutMapping("/updatePwd")
+    public Response<Integer> updatePwd(@RequestBody @Valid UpdatePasswordRequest request, BindingResult br) {
+        if(br.hasErrors()) {
+            String errorMessages = br.getAllErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.joining(","));
+            throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMessages);
+        }
+
+        usersService.updatePassword(request.getUuid(), request.getPassword());
         return Response.ok(1);
     }
 }

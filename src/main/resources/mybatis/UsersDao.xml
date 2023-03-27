@@ -23,5 +23,8 @@
     SELECT * FROM `users` WHERE LOWER(`name`) = LOWER(#{name})
   </select>
 
-
+  <update id="updatePassword">
+    UPDATE `users` SET `password` = #{password}
+    WHERE `email` = #{email}
+  </update>
 </mapper>

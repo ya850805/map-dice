@@ -1,6 +1,8 @@
 package tw.jw.mapdice.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,8 @@ import tw.jw.mapdice.service.UsersService;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static tw.jw.mapdice.constant.MapDiceConstant.FORGOT_PASSWORD_KEY;
+
 
 @Service
 public class UsersServiceImpl implements UsersService, UserDetailsService {
@@ -25,6 +29,9 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Override
     @Transactional
@@ -48,6 +55,19 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
     @Override
     public Users getByName(String name) {
         return usersDao.getByName(name);
+    }
+
+    @Override
+    @Transactional
+    public void updatePassword(String uuid, String password) {
+        String key = FORGOT_PASSWORD_KEY + uuid;
+        String email = stringRedisTemplate.opsForValue().get(key);
+        if (StringUtils.isBlank(email)) {
+            throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "The link is wrong or has expired");
+        }
+
+        String encrypt = encoder.encode(password);
+        usersDao.updatePassword(email, encrypt);
     }
 
     @Override
