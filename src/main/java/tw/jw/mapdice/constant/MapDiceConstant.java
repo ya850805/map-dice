@@ -10,11 +10,11 @@ public class MapDiceConstant {
 
     public static final String FORGOT_PASSWORD_KEY = "forgot-password-";
 
-    public static final String FORGOT_PASSWORD_TITLE = "Map dice retrieve password";
+    public static final String FORGOT_PASSWORD_TITLE = "Map dice reset password";
 
     public static final String FORGOT_PASSWORD_CONTENT = "" +
             "<span>親愛的用戶您好</span><br>" +
-            "您正在進行<font color='red'>密碼取回</font>操作，<br>" +
+            "您正在進行<font color='red'>密碼重設</font>操作，<br>" +
             "修改密碼連結為：%s<br>" +
             "此連結<font color='red'>5分鐘</font>有效，請盡快操作謝謝!";
 }
