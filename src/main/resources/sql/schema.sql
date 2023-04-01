@@ -7,3 +7,10 @@ CREATE TABLE `users` (
      `password` VARCHAR(100) NOT NULL,
      PRIMARY KEY(id)
 );
+
+CREATE TABLE `users_collect` (
+     `id` INT NOT NULL AUTO_INCREMENT,
+     `user_id` INT NOT NULL,
+     `place_id` VARCHAR(200) NOT NULL,
+     PRIMARY KEY(id)
+)
