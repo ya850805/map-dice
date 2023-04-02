@@ -13,5 +13,10 @@
     INSERT INTO `users_collect`(`user_id`, `place_id`)
     VALUES (#{userId}, #{placeId})
   </insert>
+  <delete id="delete">
+    DELETE FROM `users_collect`
+    WHERE `user_id` = #{userId}
+    AND `place_id` = #{placeId}
+  </delete>
 
 </mapper>

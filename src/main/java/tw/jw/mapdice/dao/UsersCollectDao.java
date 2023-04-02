@@ -8,4 +8,5 @@ import tw.jw.mapdice.domain.UsersCollect;
 @Repository
 public interface UsersCollectDao {
     void create(Integer userId, String placeId);
+    void delete(Integer userId, String placeId);
 }

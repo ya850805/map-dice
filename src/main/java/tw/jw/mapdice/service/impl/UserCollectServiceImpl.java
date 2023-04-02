@@ -15,4 +15,9 @@ public class UserCollectServiceImpl implements UserCollectService {
     public void create(Integer userId, String placeId) {
         dao.create(userId, placeId);
     }
+
+    @Override
+    public void delete(Integer userId, String placeId) {
+        dao.delete(userId, placeId);
+    }
 }
