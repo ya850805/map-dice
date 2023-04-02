@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `users_collect`;
 
 CREATE TABLE `users` (
      `id` INT NOT NULL AUTO_INCREMENT,
