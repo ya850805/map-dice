@@ -18,5 +18,10 @@
     WHERE `user_id` = #{userId}
     AND `place_id` = #{placeId}
   </delete>
+  <select id="findByUserId" resultType="java.lang.String">
+    SELECT `place_id`
+    FROM `users_collect`
+    WHERE `user_id` = #{userId}
+  </select>
 
 </mapper>
