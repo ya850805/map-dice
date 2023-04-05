@@ -8,5 +8,9 @@
     <result column="website" jdbcType="VARCHAR" property="website" />
     <result column="address" jdbcType="VARCHAR" property="address" />
   </resultMap>
+  <insert id="insert">
+    INSERT INTO `place` VALUES
+    (#{id}, #{name}, #{url}, #{website}, #{address})
+  </insert>
 
 </mapper>
