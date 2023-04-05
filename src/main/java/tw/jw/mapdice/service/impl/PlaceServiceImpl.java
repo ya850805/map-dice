@@ -12,7 +12,12 @@ public class PlaceServiceImpl implements PlaceService {
     private PlaceDao dao;
 
     @Override
-    public void insert(Place place) {
-        dao.insert(place);
+    public Integer insert(Place place) {
+        if(!dao.exists(place.getId())) {
+            dao.insert(place);
+            return 1;
+        }
+
+        return 0;
     }
 }

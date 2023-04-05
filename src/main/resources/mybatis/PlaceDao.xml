@@ -12,5 +12,10 @@
     INSERT INTO `place` VALUES
     (#{id}, #{name}, #{url}, #{website}, #{address})
   </insert>
+  <select id="exists" resultType="java.lang.Boolean">
+    SELECT EXISTS(
+        SELECT 1 FROM `place` WHERE `id` = #{id}
+    )
+  </select>
 
 </mapper>

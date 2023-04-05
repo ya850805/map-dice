@@ -8,4 +8,5 @@ import tw.jw.mapdice.domain.Place;
 @Repository
 public interface PlaceDao {
     void insert(Place place);
+    boolean exists(String id);
 }
