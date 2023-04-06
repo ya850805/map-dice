@@ -3,12 +3,12 @@ package tw.jw.mapdice.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tw.jw.mapdice.dao.UsersCollectDao;
-import tw.jw.mapdice.service.UserCollectService;
+import tw.jw.mapdice.service.UsersCollectService;
 
 import java.util.List;
 
 @Service
-public class UserCollectServiceImpl implements UserCollectService {
+public class UsersCollectServiceImpl implements UsersCollectService {
 
     @Autowired
     private UsersCollectDao dao;
