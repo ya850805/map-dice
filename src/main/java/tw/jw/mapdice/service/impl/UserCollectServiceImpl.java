@@ -15,6 +15,7 @@ public class UserCollectServiceImpl implements UserCollectService {
 
     @Override
     public void create(Integer userId, String placeId) {
+        //TODO check user & place is exist
         dao.create(userId, placeId);
     }
 
