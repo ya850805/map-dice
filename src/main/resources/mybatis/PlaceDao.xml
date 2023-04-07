@@ -18,4 +18,8 @@
     )
   </select>
 
+  <select id="getById" resultType="tw.jw.mapdice.domain.Place">
+    SELECT * FROM `place` WHERE `id` = #{id}
+  </select>
+
 </mapper>
