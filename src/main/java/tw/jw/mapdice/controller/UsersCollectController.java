@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tw.jw.mapdice.exception.MapDiceException;
 import tw.jw.mapdice.model.Response;
-import tw.jw.mapdice.model.UserCollectCreateRequest;
+import tw.jw.mapdice.model.UsersCollectCreateRequest;
 import tw.jw.mapdice.service.UsersCollectService;
 import tw.jw.mapdice.service.UsersService;
 
@@ -27,7 +27,7 @@ public class UsersCollectController {
     private UsersService usersService;
 
     @PostMapping("/create")
-    public Response<Integer> create(@Valid @RequestBody UserCollectCreateRequest request, BindingResult br) {
+    public Response<Integer> create(@Valid @RequestBody UsersCollectCreateRequest request, BindingResult br) {
         if(br.hasErrors()) {
             String errorMessages = br.getAllErrors().stream().map(e -> e.getDefaultMessage()).collect(Collectors.joining(","));
             throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), errorMessages);
