@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class UsersCollectCreateRequest {
+public class UsersCollectCreateDeleteRequest {
     @NotBlank(message = "place id cannot be blank.")
     private String placeId;
 }
