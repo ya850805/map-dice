@@ -40,6 +40,9 @@ public class UsersCollectServiceImpl implements UsersCollectService {
 
     @Override
     public void delete(Integer userId, String placeId) {
+        if(Objects.isNull(dao.get(userId, placeId))) {
+            throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "users collect is not exist");
+        }
         dao.delete(userId, placeId);
     }
 

@@ -13,15 +13,23 @@
     INSERT INTO `users_collect`(`user_id`, `place_id`)
     VALUES (#{userId}, #{placeId})
   </insert>
+
   <delete id="delete">
     DELETE FROM `users_collect`
     WHERE `user_id` = #{userId}
     AND `place_id` = #{placeId}
   </delete>
+
+  <select id="get" resultType="tw.jw.mapdice.domain.UsersCollect">
+    SELECT * FROM `users_collect`
+    WHERE `user_id` = #{userId} AND `place_id` = #{placeId}
+  </select>
+
   <select id="findByUserId" resultType="java.lang.String">
     SELECT `place_id`
     FROM `users_collect`
     WHERE `user_id` = #{userId}
   </select>
+
 
 </mapper>

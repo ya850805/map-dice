@@ -11,5 +11,6 @@ import java.util.List;
 public interface UsersCollectDao {
     void create(Integer userId, String placeId);
     void delete(Integer userId, String placeId);
+    UsersCollect get(Integer userId, String placeId);
     List<String> findByUserId(Integer userId);
 }
