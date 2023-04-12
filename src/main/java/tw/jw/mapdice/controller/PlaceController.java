@@ -37,7 +37,7 @@ public class PlaceController {
             throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), response.getStatus());
         }
 
-        //insert place to database
+        //insert place to database when accept query place detail request
         PlaceResponse placeResponse = response.getResult();
         Place place = new Place();
         BeanUtils.copyProperties(placeResponse, place);

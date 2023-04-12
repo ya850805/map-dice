@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class PlaceResponse {
     @JsonProperty("place_id")
-    private String placeId;
+    private String id;
 
     private String name;
 
@@ -24,7 +24,7 @@ public class PlaceResponse {
     private String website;
 
     @JsonProperty("formatted_address")
-    private String formattedAddress;
+    private String address;
 
     private List<PlaceDetailReviewResponse> reviews;
 

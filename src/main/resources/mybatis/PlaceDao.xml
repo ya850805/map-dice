@@ -22,4 +22,12 @@
     SELECT * FROM `place` WHERE `id` = #{id}
   </select>
 
+  <select id="getByIds" resultType="tw.jw.mapdice.domain.Place">
+    SELECT * FROM `place`
+    WHERE `id` IN
+    <foreach item="id" collection="ids" separator="," open="(" close=")">
+      #{id}
+    </foreach>
+  </select>
+
 </mapper>

@@ -6,6 +6,8 @@ import tw.jw.mapdice.dao.PlaceDao;
 import tw.jw.mapdice.domain.Place;
 import tw.jw.mapdice.service.PlaceService;
 
+import java.util.List;
+
 @Service
 public class PlaceServiceImpl implements PlaceService {
     @Autowired
@@ -19,5 +21,10 @@ public class PlaceServiceImpl implements PlaceService {
         }
 
         return 0;
+    }
+
+    @Override
+    public List<Place> findByIds(List<String> placeIds) {
+        return dao.getByIds(placeIds);
     }
 }
