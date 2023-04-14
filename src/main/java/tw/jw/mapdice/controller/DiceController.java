@@ -35,7 +35,7 @@ public class DiceController {
 
     private Random random = new Random();
 
-    @GetMapping("")
+    @GetMapping("/nearby")
     public Response<PlaceResponse> dice(
         @RequestParam("latitude") Double latitude,
         @RequestParam("longitude") Double longitude,
@@ -73,4 +73,6 @@ public class DiceController {
 
         return Response.ok(results.get(randIdx));
     }
+
+    //TODO dice by users_collect
 }
