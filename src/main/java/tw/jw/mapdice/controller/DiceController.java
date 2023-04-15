@@ -33,8 +33,6 @@ public class DiceController {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    private Random random = new Random();
-
     @GetMapping("/nearby")
     public Response<PlaceResponse> dice(
         @RequestParam("latitude") Double latitude,
@@ -69,6 +67,7 @@ public class DiceController {
         }
 
         List<PlaceResponse> results = response.getResults();
+        Random random = new Random();
         int randIdx = random.nextInt(results.size());
 
         return Response.ok(results.get(randIdx));
