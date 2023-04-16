@@ -17,6 +17,8 @@ import tw.jw.mapdice.exception.MapDiceException;
 import tw.jw.mapdice.model.DiceResponse;
 import tw.jw.mapdice.model.PlaceResponse;
 import tw.jw.mapdice.model.Response;
+import tw.jw.mapdice.service.UsersCollectService;
+import tw.jw.mapdice.service.UsersService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +34,12 @@ public class DiceController {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
+
+    @Autowired
+    private UsersCollectService usersCollectService;
+
+    @Autowired
+    private UsersService usersService;
 
     @GetMapping("/nearby")
     public Response<PlaceResponse> dice(
@@ -73,5 +81,11 @@ public class DiceController {
         return Response.ok(results.get(randIdx));
     }
 
-    //TODO dice by users_collect
+    @GetMapping("/collect")
+    public Response<Integer> dice(@RequestParam("count") Integer collectCount) {
+        Random random = new Random();
+        int randIdx = random.nextInt(collectCount);
+
+        return Response.ok(randIdx);
+    }
 }
