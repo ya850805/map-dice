@@ -83,6 +83,10 @@ public class DiceController {
 
     @GetMapping("/collect")
     public Response<Integer> dice(@RequestParam("count") Integer collectCount) {
+        if(collectCount.intValue() <= 0) {
+            throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "collect count is invalid");
+        }
+
         Random random = new Random();
         int randIdx = random.nextInt(collectCount);
 
