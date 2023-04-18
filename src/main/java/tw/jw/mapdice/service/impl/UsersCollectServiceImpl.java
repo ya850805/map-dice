@@ -3,12 +3,12 @@ package tw.jw.mapdice.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tw.jw.mapdice.dao.PlaceDao;
 import tw.jw.mapdice.dao.UsersCollectDao;
 import tw.jw.mapdice.dao.UsersDao;
 import tw.jw.mapdice.exception.MapDiceException;
 import tw.jw.mapdice.service.UsersCollectService;
-import tw.jw.mapdice.service.UsersService;
 
 import java.util.List;
 import java.util.Objects;
@@ -26,6 +26,7 @@ public class UsersCollectServiceImpl implements UsersCollectService {
     private PlaceDao placeDao;
 
     @Override
+    @Transactional
     public void create(Integer userId, String placeId) {
         if(Objects.isNull(usersDao.getById(userId))) {
             throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "user is not exist");
@@ -39,6 +40,7 @@ public class UsersCollectServiceImpl implements UsersCollectService {
     }
 
     @Override
+    @Transactional
     public void delete(Integer userId, String placeId) {
         if(Objects.isNull(dao.get(userId, placeId))) {
             throw new MapDiceException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "users collect is not exist");
