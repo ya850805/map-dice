@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class UsersCollectPlaceResponse {
+    private String id;
+
     private String name;
 
     private String url;
